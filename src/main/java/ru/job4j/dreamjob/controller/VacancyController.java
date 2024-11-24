@@ -12,7 +12,8 @@ import ru.job4j.dreamjob.repository.MemoryVacancyRepository;
 @RequestMapping("/vacancies")
 public class VacancyController {
 
-    private final VacancyRepository vacancyRepository = MemoryVacancyRepository.getInstance();
+    private final VacancyRepository vacancyRepository
+            = MemoryVacancyRepository.getInstance();
 
     @GetMapping
     public String getAll(Model model) {
