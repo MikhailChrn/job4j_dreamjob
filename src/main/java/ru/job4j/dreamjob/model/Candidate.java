@@ -1,5 +1,6 @@
 package ru.job4j.dreamjob.model;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Candidate {
@@ -8,15 +9,18 @@ public class Candidate {
 
     private String name;
 
-    private int age;
-
     private String description;
 
-    public Candidate(int id, String name, int age, String description) {
+    private LocalDateTime creationDate;
+
+    public Candidate(int id,
+                     String name,
+                     String description,
+                     LocalDateTime creationDate) {
         this.id = id;
         this.name = name;
-        this.age = age;
         this.description = description;
+        this.creationDate = creationDate;
     }
 
     public int getId() {
@@ -35,14 +39,6 @@ public class Candidate {
         this.name = name;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -51,17 +47,25 @@ public class Candidate {
         this.description = description;
     }
 
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
         Candidate candidate = (Candidate) o;
-        return id == candidate.id && age == candidate.age && Objects.equals(name, candidate.name);
+        return id == candidate.id && Objects.equals(name, candidate.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, age);
+        return Objects.hash(id, name);
     }
 }
