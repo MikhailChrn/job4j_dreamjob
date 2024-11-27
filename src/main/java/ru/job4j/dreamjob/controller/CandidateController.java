@@ -22,7 +22,7 @@ public class CandidateController {
     }
 
     @GetMapping("/create")
-    public String getCreationPage() {
+    public String getCreationPage(Model model) {
         return "candidates/create";
     }
 }
