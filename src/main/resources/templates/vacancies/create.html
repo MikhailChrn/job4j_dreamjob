@@ -28,17 +28,22 @@
         </div>
     </nav>
     <div class="container">
-    <form class="mt-3" th:action="@{/vacancies/create}" method="post">
+    <form class="mt-3" th:action="@{/vacancies/create}" method="post"
+          th:object="${vacancy}">
+
         <div class="mb-3">
             <label for="title" class="form-label"><b>Название</b></label>
             <input type="text" class="form-control" id="title" name="title"
                    placeholder="Предлагаемая должность, например, Ведущий Java разработчик">
         </div>
+
         <div class="mb-3">
             <label for="description" class="form-label"><b>Описание</b></label>
-            <textarea class="form-control" id="description" rows="10"
-                      placeholder="Опишите требования к кандидату"></textarea>
+            <textarea class="form-control" id="description" name="description" rows="10"
+                      placeholder="Опишите требования к кандидату">
+            </textarea>
         </div>
+
         <div class="mb-3 row">
             <div class="col-6"></div>
             <div class="col-6">
@@ -49,6 +54,7 @@
                 </div>
             </div>
         </div>
+
     </form>
 </div>
 </div>
