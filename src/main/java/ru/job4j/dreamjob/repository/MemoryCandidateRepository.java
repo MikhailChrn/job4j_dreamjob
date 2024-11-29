@@ -3,7 +3,6 @@ package ru.job4j.dreamjob.repository;
 import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.Candidate;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Repository
@@ -16,12 +15,9 @@ public class MemoryCandidateRepository implements CandidateRepository {
     private final Map<Integer, Candidate> candidates = new HashMap<>();
 
     private MemoryCandidateRepository() {
-        save(new Candidate(1, "Mark Otto", "Junior+ developer",
-                LocalDateTime.of(1961, 01, 01, 00, 00)));
-        save(new Candidate(2, "Jacob Thornton", "Senior developer",
-                LocalDateTime.of(1941, 01, 01, 00, 00)));
-        save(new Candidate(3, "Larry the Bird", "Middle developer",
-                LocalDateTime.of(1951, 01, 01, 00, 00)));
+        save(new Candidate(1, "Mark Otto", "Junior+ developer"));
+        save(new Candidate(2, "Jacob Thornton", "Senior developer"));
+        save(new Candidate(3, "Larry the Bird", "Middle developer"));
     }
 
     public static MemoryCandidateRepository getInstance() {
@@ -36,8 +32,8 @@ public class MemoryCandidateRepository implements CandidateRepository {
     }
 
     @Override
-    public void deleteById(int id) {
-        candidates.remove(id);
+    public boolean deleteById(int id) {
+        return candidates.remove(id) != null;
     }
 
     @Override
@@ -46,8 +42,7 @@ public class MemoryCandidateRepository implements CandidateRepository {
                 (id, oldCandidate) ->
                         new Candidate(oldCandidate.getId(),
                             candidate.getName(),
-                            candidate.getDescription(),
-                            candidate.getCreationDate()
+                            candidate.getDescription()
                         )
         ) != null;
     }
