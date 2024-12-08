@@ -8,8 +8,6 @@ import java.util.*;
 @Repository
 public class MemoryCandidateRepository implements CandidateRepository {
 
-    private static final MemoryCandidateRepository INSTANCE = new MemoryCandidateRepository();
-
     private int nextId = 1;
 
     private final Map<Integer, Candidate> candidates = new HashMap<>();
@@ -18,10 +16,6 @@ public class MemoryCandidateRepository implements CandidateRepository {
         save(new Candidate(1, "Mark Otto", "Junior+ developer"));
         save(new Candidate(2, "Jacob Thornton", "Senior developer"));
         save(new Candidate(3, "Larry the Bird", "Middle developer"));
-    }
-
-    public static MemoryCandidateRepository getInstance() {
-        return INSTANCE;
     }
 
     @Override
