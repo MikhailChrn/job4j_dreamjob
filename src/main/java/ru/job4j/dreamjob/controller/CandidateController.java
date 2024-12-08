@@ -7,10 +7,13 @@ import org.springframework.web.bind.annotation.*;
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.service.CandidateService;
 
+import net.jcip.annotations.ThreadSafe;
+
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/candidates")
+@ThreadSafe
 public class CandidateController {
 
     private final CandidateService candidateService;
