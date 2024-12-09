@@ -21,20 +21,22 @@
     <header th:insert="blocks/header :: header"></header>
 
     <div class="container">
-        <form class="mt-3" th:action="@{/vacancies/create}" method="post"
-              th:object="${vacancy}">
-
+        <form class="mt-3" th:action="@{/vacancies/create}" method="post">
             <div class="mb-3">
                 <label for="title" class="form-label"><b>Название</b></label>
                 <input type="text" class="form-control" id="title" name="title"
-                       placeholder="Предлагаемая должность, например, Ведущий Java разработчик">
+                       placeholder="Предлагая должность, например, Ведущий Java разработчик">
             </div>
 
             <div class="mb-3">
                 <label for="description" class="form-label"><b>Описание</b></label>
                 <textarea class="form-control" id="description" name="description" rows="10"
-                          placeholder="Опишите требования к кандидату">
-            </textarea>
+                          placeholder="Опишите требования к кандидату"></textarea>
+            </div>
+
+            <div class="form-check mb-3">
+                <input type="checkbox" name="visible" class="form-check-input" id="visible">
+                <label class="form-check-label" for="visible">Опубликовать</label>
             </div>
 
             <div class="mb-3 row">
