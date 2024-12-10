@@ -38,10 +38,12 @@ public class MemoryCandidateRepository implements CandidateRepository {
     public boolean update(Candidate candidate) {
         return candidates.computeIfPresent(candidate.getId(),
                 (id, oldCandidate) ->
-                        new Candidate(oldCandidate.getId(),
-                            candidate.getName(),
-                            candidate.getDescription(),
-                            candidate.getCityId()
+                        new Candidate(
+                                oldCandidate.getId(),
+                                candidate.getName(),
+                                candidate.getDescription(),
+                                candidate.getCityId(),
+                                candidate.getFileId()
                         )
         ) != null;
     }
