@@ -1,0 +1,34 @@
+#Проверка статуса службы postgresql
+sudo systemctl status postgresql
+
+#Подключиться на локальном компьютере к суперюзеру через сокет(/var/run/postgresql)
+sudo -u postgres psql
+
+#Создание пользователя для postgresql
+CREATE USER dreamjob WITH PASSWORD 'dreamjob';
+
+#Создание базы данных
+CREATE DATABASE dreamjob;
+
+#Назначение пользователю права на базу данных
+GRANT ALL PRIVILEGES ON DATABASE dreamjob to dreamjob;
+
+========================================================================
+
+#Подключиться суперюзером через сокет(/var/run/postgresql) на локальном компьютере к базе данных dreamjob
+sudo -u postgres psql -d dreamjob
+
+#dreamjob=# \conninfo
+#You are connected to database "dreamjob" as user "postgres" via socket in "/var/run/postgresql" at port "5432".
+
+#Для работы с таблицами потребовались доп.права на схему public базы дынных dreamjob
+GRANT ALL ON SCHEMA public TO dreamjob;
+
+Далее работаем из под пользователя dreamjob
+
+#Подключение пользователя через хост(localhost)
+psql -d dreamjob -U dreamjob -h localhost
+
+#dreamjob=> \conninfo
+#You are connected to database "dreamjob" as user "dreamjob" on host "localhost" (address "127.0.0.1") at port "5432".
+#SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, compression: off)

@@ -67,7 +67,7 @@ public class CandidateController {
     @PostMapping("/update")
     public String update(@ModelAttribute Candidate candidate, @RequestParam MultipartFile file, Model model) {
         try {
-            var isUpdated = candidateService.update(candidate, new FileDto(file.getOriginalFilename(), file.getBytes()));
+            boolean isUpdated = candidateService.update(candidate, new FileDto(file.getOriginalFilename(), file.getBytes()));
             if (!isUpdated) {
                 model.addAttribute("message", "Вакансия с указанным идентификатором не найдена");
                 return "errors/404";

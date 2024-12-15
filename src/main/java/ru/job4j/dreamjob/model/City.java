@@ -2,9 +2,12 @@ package ru.job4j.dreamjob.model;
 
 public class City {
 
-    private final int id;
+    private int id;
 
-    private final String name;
+    private String name;
+
+    public City() {
+    }
 
     public City(int id, String name) {
         this.id = id;

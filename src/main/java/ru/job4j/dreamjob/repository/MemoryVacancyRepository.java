@@ -12,7 +12,6 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Repository
 @ThreadSafe
 public class MemoryVacancyRepository implements VacancyRepository {
 
@@ -23,22 +22,22 @@ public class MemoryVacancyRepository implements VacancyRepository {
     private MemoryVacancyRepository() {
         save(new Vacancy(1, "Intern Java Developer",
                 "Понимание принципов ООП, понимание алгоритмов и структур данных, знание Java Core",
-                LocalDateTime.of(2001, 1, 1, 0, 0), 1));
+                LocalDateTime.of(2001, 1, 1, 0, 0), true, 1, 1));
         save(new Vacancy(2, "Junior Java Developer",
                 "Обязательное знание основ Java EE (Servlets, jsp), ",
-                LocalDateTime.of(2001, 1, 1, 0, 0), 2));
+                LocalDateTime.of(2001, 1, 1, 0, 0), true, 2, 1));
         save(new Vacancy(3, "Junior+ Java Developer",
                 "Представление о реляционных базах данных (Oracle, MySQL, PostgreSQL и др.)",
-                LocalDateTime.of(2001, 1, 1, 0, 0), 3));
+                LocalDateTime.of(2001, 1, 1, 0, 0), true, 3, 1));
         save(new Vacancy(4, "Middle Java Developer",
                 "Опыт написания unit-тестов, знания систем контроля версий (git или svn)",
-                LocalDateTime.of(2001, 1, 1, 0, 0), 1));
+                LocalDateTime.of(2001, 1, 1, 0, 0), true, 1, 1));
         save(new Vacancy(5, "Middle+ Java Developer",
                 "Знание Spring Framework, а также ORM (Hibernate Framework)",
-                LocalDateTime.of(2001, 1, 1, 0, 0), 2));
+                LocalDateTime.of(2001, 1, 1, 0, 0), true, 2, 1));
         save(new Vacancy(6, "Senior Java Developer",
                 "Высшая академия beckend веб-разработки \"Job4j\"",
-                LocalDateTime.of(2001, 1, 1, 0, 0), 3));
+                LocalDateTime.of(2001, 1, 1, 0, 0), true, 3, 1));
     }
 
     @Override

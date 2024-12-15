@@ -8,7 +8,6 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Repository
 @ThreadSafe
 public class MemoryCityRepository implements CityRepository {
 
