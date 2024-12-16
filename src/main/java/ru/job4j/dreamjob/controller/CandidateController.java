@@ -44,7 +44,7 @@ public class CandidateController {
     public String create(@ModelAttribute Candidate candidate, @RequestParam MultipartFile file, Model model) {
         try {
             candidateService.save(candidate, new FileDto(file.getOriginalFilename(), file.getBytes()));
-            return "redirect:/vacancies";
+            return "redirect:/candidates";
         } catch (Exception exception) {
             model.addAttribute("message", exception.getMessage());
             return "errors/404";

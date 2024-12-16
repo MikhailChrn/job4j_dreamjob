@@ -20,12 +20,12 @@ public class Sql2oVacancyRepository implements VacancyRepository {
 
     @Override
     public Vacancy save(Vacancy vacancy) {
-        try (var connection = sql2o.open()) {
-            var sql = """
+        try (Connection connection = sql2o.open()) {
+            String sql = """
                       INSERT INTO vacancies(title, description, creation_date, visible, city_id, file_id)
                       VALUES (:title, :description, :creationDate, :visible, :cityId, :fileId)
                       """;
-            var query = connection.createQuery(sql, true)
+            Query query = connection.createQuery(sql, true)
                     .addParameter("title", vacancy.getTitle())
                     .addParameter("description", vacancy.getDescription())
                     .addParameter("creationDate", vacancy.getCreationDate())
@@ -77,16 +77,18 @@ public class Sql2oVacancyRepository implements VacancyRepository {
         try (Connection connection = sql2o.open()) {
             Query query = connection.createQuery("SELECT * FROM vacancies WHERE id = :id");
             query.addParameter("id", id);
-            Vacancy vacancy = query.setColumnMappings(Vacancy.COLUMN_MAPPING).executeAndFetchFirst(Vacancy.class);
+            Vacancy vacancy = query.setColumnMappings(Vacancy.COLUMN_MAPPING)
+                    .executeAndFetchFirst(Vacancy.class);
             return Optional.ofNullable(vacancy);
         }
     }
 
     @Override
     public Collection<Vacancy> findAll() {
-        try (var connection = sql2o.open()) {
-            var query = connection.createQuery("SELECT * FROM vacancies");
-            return query.setColumnMappings(Vacancy.COLUMN_MAPPING).executeAndFetch(Vacancy.class);
+        try (Connection connection = sql2o.open()) {
+            Query query = connection.createQuery("SELECT * FROM vacancies");
+            return query.setColumnMappings(Vacancy.COLUMN_MAPPING)
+                    .executeAndFetch(Vacancy.class);
         }
     }
 }

@@ -24,7 +24,7 @@ public class MemoryVacancyRepository implements VacancyRepository {
                 "Понимание принципов ООП, понимание алгоритмов и структур данных, знание Java Core",
                 LocalDateTime.of(2001, 1, 1, 0, 0), true, 1, 1));
         save(new Vacancy(2, "Junior Java Developer",
-                "Обязательное знание основ Java EE (Servlets, jsp), ",
+                "Обязательное знание основ Java EE (Servlets, jsp)",
                 LocalDateTime.of(2001, 1, 1, 0, 0), true, 2, 1));
         save(new Vacancy(3, "Junior+ Java Developer",
                 "Представление о реляционных базах данных (Oracle, MySQL, PostgreSQL и др.)",
