@@ -1,6 +1,7 @@
 package ru.job4j.dreamjob.model;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -47,6 +48,15 @@ public class Vacancy {
         this.visible = visible;
         this.cityId = cityId;
         this.fileId = fileId;
+    }
+
+    public Vacancy(int id,
+                   String title,
+                   String description,
+                   LocalTime creationDate,
+                   boolean visible,
+                   int cityId,
+                   int id1) {
     }
 
     public int getId() {
