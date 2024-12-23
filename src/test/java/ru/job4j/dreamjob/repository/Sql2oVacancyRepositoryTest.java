@@ -8,14 +8,13 @@ import ru.job4j.dreamjob.model.Vacancy;
 
 import javax.sql.DataSource;
 import java.io.InputStream;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 
-import static java.time.LocalDateTime.now;
 import static java.util.Collections.emptyList;
 import static java.util.Optional.empty;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -65,7 +64,7 @@ public class Sql2oVacancyRepositoryTest {
 
     @Test
     public void whenSaveThenGetSame() {
-        LocalTime creationDate = LocalTime.from(now().truncatedTo(ChronoUnit.MINUTES));
+        LocalDateTime creationDate = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
         Vacancy vacancy = sql2oVacancyRepository.save(
                 new Vacancy(0, "title", "description",
                         creationDate, true, 1, file.getId()));
@@ -75,7 +74,7 @@ public class Sql2oVacancyRepositoryTest {
 
     @Test
     public void whenSaveSeveralThenGetAll() {
-        LocalTime creationDate = LocalTime.from(now().truncatedTo(ChronoUnit.MINUTES));
+        LocalDateTime creationDate = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
         Vacancy vacancy1 = sql2oVacancyRepository.save(
                 new Vacancy(0, "title1", "description1",
                         creationDate, true, 1, file.getId()));
@@ -97,7 +96,7 @@ public class Sql2oVacancyRepositoryTest {
 
     @Test
     public void whenDeleteThenGetEmptyOptional() {
-        LocalTime creationDate = LocalTime.from(now().truncatedTo(ChronoUnit.MINUTES));
+        LocalDateTime creationDate = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
         Vacancy vacancy = sql2oVacancyRepository.save(new Vacancy(0, "title", "description",
                 creationDate, true, 1, file.getId()));
         boolean isDeleted = sql2oVacancyRepository.deleteById(vacancy.getId());
@@ -113,7 +112,7 @@ public class Sql2oVacancyRepositoryTest {
 
     @Test
     public void whenUpdateThenGetUpdated() {
-        LocalTime creationDate = LocalTime.from(now().truncatedTo(ChronoUnit.MINUTES));
+        LocalDateTime creationDate = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
         Vacancy vacancy = sql2oVacancyRepository.save(new Vacancy(0, "title", "description",
                 creationDate, true, 1, file.getId()));
         Vacancy updatedVacancy = new Vacancy(
@@ -129,7 +128,7 @@ public class Sql2oVacancyRepositoryTest {
 
     @Test
     public void whenUpdateUnExistingVacancyThenGetFalse() {
-        LocalTime creationDate = LocalTime.from(now().truncatedTo(ChronoUnit.MINUTES));
+        LocalDateTime creationDate = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
         Vacancy vacancy = new Vacancy(0, "title", "description",
                 creationDate, true, 1, file.getId());
         boolean isUpdated = sql2oVacancyRepository.update(vacancy);
