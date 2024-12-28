@@ -39,7 +39,7 @@ public class Sql2oCandidateRepository implements CandidateRepository {
 
     @Override
     public boolean deleteById(int id) {
-        boolean result = false;
+        boolean result;
         try (Connection connection = sql2o.open()) {
             Query query = connection.createQuery("DELETE FROM candidates WHERE id = :id");
             query.addParameter("id", id);
