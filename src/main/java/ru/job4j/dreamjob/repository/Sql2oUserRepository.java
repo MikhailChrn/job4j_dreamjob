@@ -19,7 +19,8 @@ public class Sql2oUserRepository implements UserRepository {
     }
 
     @Override
-    public User save(User user) {
+    public Optional<User> save(User user) {
+        Optional<User> result = Optional.empty();
         try (Connection connection = sql2o.open()) {
             String sql = """
                     INSERT INTO users(email, name, password)
@@ -31,8 +32,11 @@ public class Sql2oUserRepository implements UserRepository {
                     .addParameter("password", user.getPassword());
             int generatedId = query.executeUpdate().getKey(Integer.class);
             user.setId(generatedId);
-            return user;
+            result = Optional.of(user);
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
+        return result;
     }
 
     @Override

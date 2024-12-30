@@ -49,11 +49,11 @@ class Sql2oUserRepositoryTest {
 
     @Test
     public void whenSaveThenGetSame() {
-        User user = sql2oUserRepository.save(
+        Optional<User> user = sql2oUserRepository.save(
                 new User(777, "test@test.test", "test", "test"));
         User savedUser = sql2oUserRepository
-                .findByEmailAndPassword(user.getEmail(), user.getPassword()).get();
-        assertThat(savedUser).usingRecursiveComparison().isEqualTo(user);
+                .findByEmailAndPassword(user.get().getEmail(), user.get().getPassword()).get();
+        assertThat(savedUser).usingRecursiveComparison().isEqualTo(user.get());
     }
 
     @Test
@@ -64,10 +64,10 @@ class Sql2oUserRepositoryTest {
 
     @Test
     public void whenDeleteThenGetEmptyOptional() {
-        User user = sql2oUserRepository.save(
+        Optional<User> user = sql2oUserRepository.save(
                 new User(777, "test@test.test", "test", "test"));
-        boolean isDeleted = sql2oUserRepository.deleteById(user.getId());
-        Optional<User> savedVacancy = sql2oUserRepository.findById(user.getId());
+        boolean isDeleted = sql2oUserRepository.deleteById(user.get().getId());
+        Optional<User> savedVacancy = sql2oUserRepository.findById(user.get().getId());
         assertThat(isDeleted).isTrue();
         assertThat(savedVacancy).isEqualTo(empty());
     }

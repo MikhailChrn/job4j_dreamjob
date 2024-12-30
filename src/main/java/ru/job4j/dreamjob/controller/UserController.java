@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.service.UserService;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/users")
 @ThreadSafe
@@ -27,6 +29,16 @@ public class UserController {
     }
 
     @PostMapping("/register")
+    public String register(Model model, @ModelAttribute User user) {
+        Optional<User> savedUser = userService.save(user);
+        if (savedUser.isEmpty()) {
+            model.addAttribute("message", "Пользователь с такой почтой уже существует");
+            return "errors/404";
+        }
+        return "redirect:/vacancies";
+    }
+
+    /*@PostMapping("/register")
     public String register(@ModelAttribute User user, Model model) {
         try {
             userService.save(user);
@@ -35,5 +47,5 @@ public class UserController {
             model.addAttribute("message", exception.getMessage());
             return "errors/404";
         }
-    }
+    }*/
 }
