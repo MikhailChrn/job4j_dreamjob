@@ -23,7 +23,7 @@ public class SimpleUserService implements UserService {
     }
 
     @Override
-    public Optional<User> getUser(String email, String password) {
+    public Optional<User> findByEmailAndPassword(String email, String password) {
         return userRepository.findByEmailAndPassword(email, password);
     }
 

@@ -38,14 +38,18 @@ public class UserController {
         return "redirect:/vacancies";
     }
 
-    /*@PostMapping("/register")
-    public String register(@ModelAttribute User user, Model model) {
-        try {
-            userService.save(user);
-            return "redirect:/index";
-        } catch (Exception exception) {
-            model.addAttribute("message", exception.getMessage());
-            return "errors/404";
+    @GetMapping("/login")
+    public String getLoginPage() {
+        return "users/login";
+    }
+
+    @PostMapping("/login")
+    public String loginUser(@ModelAttribute User user, Model model) {
+        Optional<User> userOptional = userService.findByEmailAndPassword(user.getEmail(), user.getPassword());
+        if (userOptional.isEmpty()) {
+            model.addAttribute("error", "Почта или пароль введены неверно");
+            return "users/login";
         }
-    }*/
+        return "redirect:/vacancies";
+    }
 }
