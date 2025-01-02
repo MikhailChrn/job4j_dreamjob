@@ -24,31 +24,26 @@ public class VacancyController {
 
     private final CityService cityService;
 
-    public VacancyController(VacancyService vacancyService, CityService cityService) {
+    private final UserController userController;
+
+    public VacancyController(VacancyService vacancyService,
+                             CityService cityService,
+                             UserController userController) {
         this.vacancyService = vacancyService;
         this.cityService = cityService;
+        this.userController = userController;
     }
 
     @GetMapping
     public String getAll(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
+        userController.addUserAsAttributeToModel(model, session);
         model.addAttribute("vacancies", vacancyService.findAll());
         return "vacancies/list";
     }
 
     @GetMapping("/create")
     public String getCreationPage(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
+        userController.addUserAsAttributeToModel(model, session);
         model.addAttribute("cities", cityService.findAll());
         return "vacancies/create";
     }
@@ -66,12 +61,6 @@ public class VacancyController {
 
     @GetMapping("/{id}")
     public String getById(Model model, @PathVariable int id, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-
         Optional<Vacancy> vacancyOptional = vacancyService.findById(id);
         if (vacancyOptional.isEmpty()) {
             model.addAttribute("message",
@@ -79,7 +68,7 @@ public class VacancyController {
             return "errors/404";
         }
 
-        model.addAttribute("user", user);
+        userController.addUserAsAttributeToModel(model, session);
         model.addAttribute("cities", cityService.findAll());
         model.addAttribute("vacancy", vacancyOptional.get());
         return "vacancies/one";

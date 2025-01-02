@@ -25,31 +25,26 @@ public class CandidateController {
 
     private final CityService cityService;
 
-    public CandidateController(CandidateService candidateService, CityService cityService) {
+    private final UserController userController;
+
+    public CandidateController(CandidateService candidateService,
+                               CityService cityService,
+                               UserController userController) {
         this.candidateService = candidateService;
         this.cityService = cityService;
+        this.userController = userController;
     }
 
     @GetMapping
     public String getAll(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
+        userController.addUserAsAttributeToModel(model, session);
         model.addAttribute("candidates", candidateService.findAll());
         return "candidates/list";
     }
 
     @GetMapping("/create")
     public String getCreationPage(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
+        userController.addUserAsAttributeToModel(model, session);
         model.addAttribute("cities", cityService.findAll());
         return "candidates/create";
     }
@@ -67,20 +62,13 @@ public class CandidateController {
 
     @GetMapping("/{id}")
     public String getById(Model model, @PathVariable int id, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-
         Optional<Candidate> candidateOptional = candidateService.findById(id);
         if (candidateOptional.isEmpty()) {
             model.addAttribute("message",
                     "Анкета с указанным идентификатором не найдена");
             return "errors/404";
         }
-
-        model.addAttribute("user", user);
+        userController.addUserAsAttributeToModel(model, session);
         model.addAttribute("candidate", candidateOptional.get());
         model.addAttribute("cities", cityService.findAll());
         return "candidates/one";

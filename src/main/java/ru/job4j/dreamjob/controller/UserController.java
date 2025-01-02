@@ -62,4 +62,14 @@ public class UserController {
         session.invalidate();
         return "redirect:/users/login";
     }
+
+    protected void addUserAsAttributeToModel(Model model,
+                                      HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
+    }
 }
